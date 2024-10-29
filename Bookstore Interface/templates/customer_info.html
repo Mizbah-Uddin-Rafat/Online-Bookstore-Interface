@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}User Info{% endblock %}
+
+{% block content %}
+<div class="customer">
+    <h2>Sorting Options for Customers (Merge Sort)</h2>
+    
+    <form method="POST">
+        <button type="submit" name="sort_customers" value="asc">Sort Customers Ascending</button>
+        <button type="submit" name="sort_customers" value="desc">Sort Customers Descending</button>
+    </form>
+    <h3>Customers Information</h3>
+    <ul>
+        {% for customer in sorted_customers %}
+        <li>{{customer.id}} - {{ customer.name }} - {{ customer.phone }} - {{ customer.address }} - <a href="{{ url_for('edit_customer', customer_id=customer.id) }}">Edit</a></li>
+        {% endfor %}
+    </ul>
+    <div class="back-button">
+      <a href="{{ url_for('main') }}" class="button">Back</a>
+  </div>
+</div>
+{% endblock %}

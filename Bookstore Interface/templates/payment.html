@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block title %}Payment{% endblock %}
+
+{% block content %}
+<div class="payment_box">
+    <h2>Payment</h2>
+    <p>Total Amount: ${{ total_amount }}</p>
+    <form method="POST" action="{{ url_for('payment', order_id=order_id) }}">
+        <input type="submit" value="Pay Now" class= "pay_button">
+    </form>
+    <div class="back-button">
+        <a href="{{ url_for('shopping_cart') }}" class="button">Back</a>
+    </div>
+</div>
+{% endblock %}

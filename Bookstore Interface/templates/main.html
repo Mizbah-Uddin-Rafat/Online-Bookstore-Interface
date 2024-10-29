@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="main_box">
+    <h2>Dashboard</h2>
+    
+    <!-- User Information Section -->
+    {% if user %}
+    <h3>User Information</h3>
+    <ul>
+        <li>Name: {{ user.username }}</li>
+        <li>Phone: {{customer.phone}}</li>
+        <li>Address: {{customer.address}}</li>
+    </ul>
+    <!-- Logout Button -->
+    <form method="POST" action="{{ url_for('logout') }}">
+        <button type="submit">Logout</button>
+    </form>
+    {% else %}
+    <p>No user information available.</p>
+    {% endif %}
+    <div>
+    <!-- Button to Inventory Page -->
+    <div class="button-container">
+        <a href="{{ url_for('inventory') }}" class="button">Manage Inventory</a>
+        <a href="{{ url_for('order_record') }}" class="button">Order Record</a>
+    </div>
+    <div class="button-container">
+        <a href="{{ url_for('customer_info') }}" class="button">View Customer Information</a>
+        <a href="{{ url_for('user_info') }}" class="button">View User Information</a>
+    </div>
+    <div class="button-container">
+        <a href="{{ url_for('order') }}" class="button">Make an Order</a>
+        
+    </div>
+    
+
+    
+    <!-- Books Section -->
+    <h3>Books</h3>
+    <ul class="books">
+        {% for book in sorted_inventory %}
+        <li>
+            <img src="{{ url_for('static', filename='images/' ~ book.image) }}" alt="{{ book.title }}">
+            {{ book.title }} - {{ book.author.name }} - {{ book.inventory.quantity }} in stock
+            <form method="POST" action="/order">
+                <input type="hidden" name="book_id" value="{{ book.id }}">
+                <input type="number" name="quantity" min="1" max="{{ book.inventory.quantity }}" required>
+                <button type="submit">Order</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+
+    
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block title %}Orders{% endblock %}
+
+{% block content %}
+<div class="orders_box">
+    <h2>All Orders</h2>
+    <ul>
+        {% for order in orders %}
+        <li>{{ order.book.title }} - {{ order.quantity }} ordered by {{ order.customer.name }} on {{ order.order_date }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

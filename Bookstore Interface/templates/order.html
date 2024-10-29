@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block title %}Order{% endblock %}
+
+{% block content %}
+<div class="order_box">
+    <h2>Place an Order</h2>
+    
+    <div class="search_container">
+        <form method="GET" action="{{ url_for('order') }}" class="search_form">
+            <div class="input_box">
+                <label for="search_by">Search By:</label>
+                <select name="search_by" id="search_by" required>
+                    <option value="title">Book Title</option>
+                    <option value="author">Author Name</option>
+                    <option value="book_id">Book ID</option>
+                </select>
+            </div>
+
+            <div class="input_box">
+                <label for="search_value">Search:</label>
+                <input type="text" name="search_value" id="search_value" placeholder="Enter search value" required>
+                <input type="submit" value="Search">
+            </div>
+        </form>
+    </div>
+
+    {% if books %}
+    <div class="search_results">
+        <h3>Search Results:</h3>
+        <form method="POST" action="{{ url_for('order') }}" class="order_form">
+            <div class="input_box">
+                <label for="book_id">Select Book:</label>
+                <select name="book_id" id="book_id" required>
+                    {% for book in books %}
+                    <option value="{{ book.id }}">{{ book.title }} by {{ book.author.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="input_box">
+                <label for="quantity">Quantity:</label>
+                <input type="number" name="quantity" id="quantity" min="1" required>
+            </div>
+
+            <div class="input_box">
+                <input type="submit" class="input-submit" value="Add to Cart">
+            </div>
+        </form>
+    </div>
+    {% else %}
+    <p>No books found. Please use the search form above to find books.</p>
+    {% endif %}
+
+    <div class="back-button">
+        <a href="{{ url_for('main') }}" class="button">Back</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block title %}Inventory Management{% endblock %}
+
+{% block content %}
+<div class="inventory_box">
+    <h2>Inventory Management (Using Insertion Sort)</h2>
+    <div class="back-button">
+        <a href="{{ url_for('main') }}" class="button">Back</a>
+    </div>
+    <a href="{{ url_for('add_book') }}"class="button">Add New Book</a>
+   
+    <!-- Sort Options -->
+    <form method="get">
+        <button type="submit" name="sort_order" value="asc" class="button">Sort Inventory Ascending</button>
+        <button type="submit" name="sort_order" value="desc" class="button">Sort Inventory Descending</button>
+    </form>
+
+    <!-- Inventory List -->
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Publisher</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Restock</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in books %}
+                <tr>
+                    <td>{{ book.title }}</td>
+                    <td>{{ book.author.name }}</td>
+                    <td>{{ book.publisher.name }}</td>
+                    <td>£{{ book.price }}</td>
+                    <td>{{ book.inventory.quantity }}</td>
+                    <td>
+                        <form method="POST" style="display:inline;">
+                            <input type="hidden" name="book_id" value="{{ book.id }}">
+                            <input type="number" name="restock_quantity" min="1" required>
+                            <input type="submit" value="Restock" class="input-submit">
+                        </form>
+                        <a href="{{ url_for('edit_book', book_id=book.id) }}" class="button">Edit</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

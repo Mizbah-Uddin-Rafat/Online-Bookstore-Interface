@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block title %}Invoice{% endblock %}
+
+{% block content %}
+<div class="invoice_box">
+    <h2>Invoice</h2>
+    <p>Invoice ID: {{ invoice.id }}</p>
+    <p>Total: ${{ invoice.total }}</p>
+    <p>Customer: {{ invoice.customer.name }}</p>
+    <div class="back-button">
+        <a href="{{ url_for('main') }}" class="button">Back</a>
+    </div>
+</div>
+{% endblock %}

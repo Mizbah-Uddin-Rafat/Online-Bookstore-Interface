@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}Order Records{% endblock %}
+
+{% block content %}
+<div class="order_record_box">
+    <h2>Order Records(Using Bubble Sort)</h2>
+    
+    <!-- Sort Options -->
+    <div class="sort-buttons">
+        <form method="GET" action="{{ url_for('order_record') }}">
+            <button type="submit" name="sort_priority" value="desc">Sort by Priority Ascending </button>
+            <button type="submit" name="sort_priority" value="asc">Sort by Priority Descending</button>
+        </form>
+    </div>
+
+    <!-- Orders Table -->
+    <div class="table_container">
+        <table class="order_table">
+            <thead>
+                <tr>
+                    <th>Book Title</th>
+                    <th>Quantity</th>
+                    <th>Customer Name</th>
+                    <th>Order Date</th>
+                    <th>Priority</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.book.title }}</td>
+                    <td>{{ order.quantity }}</td>
+                    <td>{{ order.customer.name }}</td>
+                    <td>{{ order.order_date }}</td>
+                    <td>{{ order.priority }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="back-button">
+        <a href="{{ url_for('main') }}" class="button">Back</a>
+    </div>
+</div>
+{% endblock %}

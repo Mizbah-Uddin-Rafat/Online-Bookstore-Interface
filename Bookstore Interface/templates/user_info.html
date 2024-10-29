@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}User Info{% endblock %}
+
+{% block content %}
+<div class="user_info_box">
+    <h2>Sorting Options for Users (Merge Sort)</h2>
+    
+    <form method="POST">
+        <button type="submit" name="sort_users" value="asc">Sort Users Ascending</button>
+        <button type="submit" name="sort_users" value="desc">Sort Users Descending</button>
+    </form>
+    <h3>Users Information</h3>
+    <ul>
+        {% for user in sorted_users %}
+        <li>ID:{{user.id}} - {{ user.username }} - <a href="{{ url_for('edit_user', user_id=user.id) }}">Edit</a></li>
+        {% endfor %}
+    </ul>
+    <div class="back-button">
+      <a href="{{ url_for('main') }}" class="button">Back</a>
+  </div>
+</div>
+{% endblock %}

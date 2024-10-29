@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}Shopping Cart{% endblock %}
+
+{% block content %}
+<div class="cart_box">
+    <h2>Your Shopping Cart</h2>
+    <ul>
+        {% for item in cart_items %}
+        <li>
+            {{ item.book.title }} - {{ item.quantity }} @ ${{ item.book.price }} each
+            <form method="POST" style="display:inline;">
+                <input type="hidden" name="remove_item" value="{{ item.id }}">
+                <input type="submit" value="Remove" class="input-submit">
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+    <p>Total: ${{ total_price }}</p>
+
+    <form method="POST">
+        <div class="input_box">
+            <label for="priority">Priority:</label>
+            <select name="priority" id="priority" required>
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+            </select>
+        </div>
+        <div class="input_box">
+            <input type="submit" class="input-submit" value="Checkout">
+        </div>
+    </form>
+
+    <form method="POST" style="margin-top: 20px;">
+        <input type="hidden" name="clear_cart" value="true">
+        <input type="submit" class="input-submit" value="Clear Cart">
+    </form>
+    <div class="back-button">
+        <a href="{{ url_for('main') }}" class="button">Back</a>
+    </div>
+</div>
+{% endblock %}

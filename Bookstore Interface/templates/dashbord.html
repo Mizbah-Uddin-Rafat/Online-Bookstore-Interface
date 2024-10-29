@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="main_box">
+    <h2>Dashboard</h2>
+    
+    <!-- User Information Section -->
+    {% if user %}
+    <h3>User Information</h3>
+    <ul>
+        <li>Name: {{ user.username }}</li>
+    </ul>
+    <!-- Logout Button -->
+    <form method="POST" action="{{ url_for('logout') }}">
+        <button type="submit">Logout</button>
+    </form>
+    {% else %}
+    <p>No user information available.</p>
+    {% endif %}
+    <div>
+    <!-- Button to Inventory Page -->
+    <a href="{{ url_for('inventory') }}" class="button">Manage Inventory</a>
+    </div>
+    <div>
+    <!-- Button to User Info Page -->
+    <a href="{{ url_for('user_info') }}" class="button">View User Informatation</a>
+    </div>
+    <div>
+        <!-- Button to User Info Page -->
+        <a href="{{ url_for('customer_info') }}" class="button">View Customer Informatation</a>
+        </div>
+    <div>
+            <!-- Button to User Info Page -->
+        <a href="{{ url_for('order_record') }}" class="button">Order Record</a>
+        </div>
+    <!-- Books Section -->
+    <h3>Books</h3>
+    <ul>
+        {% for book in sorted_inventory %}
+        <li>{{ book.title }} - {{ book.author.name }} - {{ book.inventory.quantity }} in stock
+            <form method="POST" action="/order">
+                <input type="hidden" name="book_id" value="{{ book.id }}">
+                <input type="number" name="quantity" min="1" max="{{ book.inventory.quantity }}" required>
+                <button type="submit">Order</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+    
+
+    <!-- Recent Orders Section -->
+    <h3>Recent Orders</h3>
+    <ul>
+        {% for order in sorted_orders %}
+        <li>{{ order.book.title }} - {{ order.quantity }} ordered by {{ order.customer.name }} on {{ order.order_date }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
