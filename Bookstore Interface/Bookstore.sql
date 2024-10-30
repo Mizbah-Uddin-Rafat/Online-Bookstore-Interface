@@ -104,6 +104,3 @@ CREATE TABLE CartItem (
 );
 
 
-ALTER TABLE Books ADD COLUMN price FLOAT;
-ALTER TABLE Orders ADD COLUMN order_date DATETIME;
-ALTER TABLE Orders ADD COLUMN priority_id int;
