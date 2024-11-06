@@ -1,1 +1,4 @@
 # Online-Bookstore-Interface
+The online bookstore in this project serves as a growing e-commerce platform dedicated to offering a wide variety of books to customers. As it rapidly expands, the bookstore faces key operational challenges, including managing increasing customer orders, maintaining accurate inventory levels, and handling user accounts efficiently.
+
+To meet these demands, the bookstore requires a robust system to process and prioritize customer orders, keep inventory data up to date, and facilitate seamless user registration, login, and profile management. Addressing these needs involves implementing efficient sorting algorithms and data structures within a Flask-based web application. By optimizing these functions, the bookstore aims to improve the customer experience, streamline operations, and scale effectively to accommodate growth.
